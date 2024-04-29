@@ -1,0 +1,2 @@
+PyGithub>=1.54
+tqdm>=4.62
