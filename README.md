@@ -55,13 +55,11 @@ python github_issue_crawler.py --state [open|closed|all] --keywords [keyword1 ke
 ```
 The arguments are all optional:
 
-`-s, --state`: The state of the issues to fetch (open, closed, or all). Default is 'open'.
+`-s, --state`: The state of the issues to fetch (open, closed, or all). Default is 'closed'. It is not recommended to use `all` since it might reach the Github API request limit.
 
 `-k, --keywords`: A list of keywords to filter the issues. This is optional.
 
-`-o, --output`: The output file where the issues will be saved in Markdown format. Default is 'issues.md'.
-
-By default, the collected document will be saved under `notes/owner/repository_timestamp.md`. The timestamp is added to the filename to avoid overwriting existing files.
+`-o, --output`: The output file where the issues will be saved in Markdown format. By default, the collected document will be saved under `notes/owner/repository_timestamp.md`. The timestamp is added to the filename to avoid overwriting existing files.
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.

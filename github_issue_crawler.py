@@ -16,7 +16,7 @@ OUTPUT_FILE = './notes/'+REPO_NAME+'_'+timestamp+'.md'    # Output file name
 def parse_args():
     parser = argparse.ArgumentParser(description="Fetch and save GitHub issues based on state and keyword filtering.")
     parser.add_argument("-k", "--keywords", nargs='+', help="Keywords to filter issues by. If not provided, all issues are fetched.")
-    parser.add_argument("-s", "--state", default="open", choices=['open', 'closed', 'all'], help="State of the issues to fetch: open, closed, or all. Default is 'open'.")
+    parser.add_argument("-s", "--state", default="closed", choices=['open', 'closed', 'all'], help="State of the issues to fetch: open, closed, or all. Default is 'closed'.")
     parser.add_argument("-o", "--output", default=OUTPUT_FILE, help="Output file path. Default is './<repo_name>_<timestamp>.md'.")
     return parser.parse_args()
 
