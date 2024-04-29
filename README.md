@@ -61,6 +61,16 @@ The arguments are all optional:
 
 `-o, --output`: The output file where the issues will be saved in Markdown format. By default, the collected document will be saved under `notes/owner/repository_timestamp.md`. The timestamp is added to the filename to avoid overwriting existing files.
 
+## Issues
+```bash
+github.GithubException.RateLimitExceededException: 403 {'message': 'API rate limit exceeded for user ID xxx...
+```
+This is because of the Github's [primary rate limit for authenticated users](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users). 
+
+Long story for short,
+* Personal token has a rate limit of 5,000 requests per hour.
+* GitHub Enterprise Cloud organization have a higher rate limit of 15,000 requests per hour.
+
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
