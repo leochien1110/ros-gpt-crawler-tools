@@ -1,12 +1,8 @@
 # GitHub Issue Crawler for ChatGPT Bots
 
-This Python script fetches issues from a specified GitHub repository and saves them in a Markdown formatted document. It supports filtering issues by keywords and state (open, closed, or all).
+This script fetches issues from a GitHub repository and saves them in Markdown format, with support for keyword and state filters. It was initially designed to aid in creating ChatGPT bots that can answer queries based on GitHub issues, aiding in model training.
 
-The orignal goal of this project is to help developers create their own ChatGPT bot that can answer questions based on the issues and comments in a GitHub repository. This script can be used to collect data for training the model. 
-
-Here's the ROS Bot that I created using ChatGPT and the data collected by this script: [Robo Advisor](https://chat.openai.com/g/g-njWAeq2iF-robo-advisor). This Bot is trained on the issues and comments from the ROS 2 repository and fine-tune with the humble documenation of ROS2.
-
-However, there is no guarantee that the data collected by this script is sufficient for training a model. You may need to collect more data or use other data sources to train a model.
+An example of its application is the [Robo Advisor](https://chat.openai.com/g/g-njWAeq2iF-robo-advisor) bot, trained on ROS 2 repository issues. However, additional data sources may be required for comprehensive model training.
 
 ## Features
 
@@ -60,8 +56,12 @@ python github_issue_crawler.py --state [open|closed|all] --keywords [keyword1 ke
 The arguments are all optional:
 
 `-s, --state`: The state of the issues to fetch (open, closed, or all). Default is 'open'.
+
 `-k, --keywords`: A list of keywords to filter the issues. This is optional.
+
 `-o, --output`: The output file where the issues will be saved in Markdown format. Default is 'issues.md'.
+
+By default, the collected document will be saved under `notes/owner/repository_timestamp.md`. The timestamp is added to the filename to avoid overwriting existing files.
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
