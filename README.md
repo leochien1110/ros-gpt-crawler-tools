@@ -34,32 +34,41 @@ Generate a personal access token from your GitHub account:
 Go to **GitHub** -> **Settings** -> **Developer settings** -> **Personal access tokens** -> **Generate new token**.
 Make sure to select the scopes or permissions you want to grant this token, such as repo for repository access. If you're unsure, select public repo.
 
-Copy the generated token and use it in the configuration step. Save this token secure and do not share it publicly.
-
-## Configuration
-Edit the config.json file by replacing `your_access_token_here` and `owner/repository` with your personal GitHub access token and the target repository.
-
-```json
-{
-    "ACCESS_TOKEN": "your_access_token_here",
-    "REPO_NAME": "owner/repository"
-}
-```
+Copy the generated token and use it in the configuration step. Save this token securely, as you won't be able to see it again.
 
 
 ## Usage
-Run the script using the following command:
-
+Setup your Github token in the environment variable:
 ```bash
-python github_issue_crawler.py --state [open|closed|all] --keywords [keyword1 keyword2 ...] --output [output_file.md]
+export GITHUB_TOKEN=your_access_token
 ```
-The arguments are all optional:
+Or you can save this into `~/.bashrc` for future use:
+```bash
+echo "export GITHUB_TOKEN=your_access_token" >> ~/.bashrc
+source ~/.bashrc
+```
+
+Run the script using the following command:
+```bash
+python github_issue_crawler.py --repo [owner/repo] --state [open|closed|all] --keywords [keyword1 keyword2 ...] --output [output_file.md]
+```
+The arguments are as follows:
+
+`-r, --repo`: The repository to fetch issues from, in the format `owner/repo`. For example, `ros2/rclpy`.
 
 `-s, --state`: The state of the issues to fetch (open, closed, or all). Default is 'closed'. It is not recommended to use `all` since it might reach the Github API request limit.
 
-`-k, --keywords`: A list of keywords to filter the issues. This is optional.
+`-k, --keywords`: **Optional** A list of keywords to filter the issues.
 
-`-o, --output`: The output file where the issues will be saved in Markdown format. By default, the collected document will be saved under `notes/owner/repository_timestamp.md`. The timestamp is added to the filename to avoid overwriting existing files.
+`-o, --output`: **Optional** The output file where the issues will be saved in Markdown format. By default, the collected document will be saved under `notes/{owner}/{repo}_{keywords_}{timestamp}.md`. 
+
+Take ros2/rclpy repository as an example:
+```bash
+python github_issue_crawler.py -r ros2/rclpy -s closed -k bug
+```
+
+Then you should see the output like this, the progress bar will show the fetching progress:
+![progress](prog.png)
 
 ## Issues
 ```bash
