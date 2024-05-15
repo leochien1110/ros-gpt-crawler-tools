@@ -38,7 +38,7 @@ Copy the generated token and use it in the configuration step. Save this token s
 
 
 ## Usage
-Setup your Github token in the environment variable:
+1. Setup your Github token in the environment variable:
 ```bash
 export GITHUB_TOKEN=your_access_token
 ```
@@ -48,27 +48,40 @@ echo "export GITHUB_TOKEN=your_access_token" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-Run the script using the following command:
-```bash
-python github_issue_crawler.py --repo [owner/repo] --state [open|closed|all] --keywords [keyword1 keyword2 ...] --output [output_file.md]
-```
-The arguments are as follows:
+2. Run the script using the following command:
+    ```bash
+    python github_issue_crawler.py --repo [owner/repo] --state [open|closed|all] --keywords [keyword1 keyword2 ...] --output [output_file.md]
+    ```
+    The arguments are as follows:
 
-`-r, --repo`: The repository to fetch issues from, in the format `owner/repo`. For example, `ros2/rclpy`.
+    `-r, --repo`: The repository to fetch issues from, in the format `owner/repo`. For example, `ros2/rclpy`.
 
-`-s, --state`: The state of the issues to fetch (open, closed, or all). Default is 'closed'. It is not recommended to use `all` since it might reach the Github API request limit.
+    `-s, --state`: The state of the issues to fetch (open, closed, or all). Default is 'closed'. It is not recommended to use `all` since it might reach the Github API request limit.
 
-`-k, --keywords`: **Optional** A list of keywords to filter the issues.
+    `-k, --keywords`: **Optional** A list of keywords to filter the issues.
 
-`-o, --output`: **Optional** The output file where the issues will be saved in Markdown format. By default, the collected document will be saved under `notes/{owner}/{repo}_{keywords_}{timestamp}.md`. 
+    `-o, --output`: **Optional** The output file where the issues will be saved in Markdown format. By default, the collected document will be saved under `notes/{owner}/{repo}_{keywords_}{timestamp}.md`. 
 
-Take ros2/rclpy repository as an example:
-```bash
-python github_issue_crawler.py -r ros2/rclpy -s closed -k bug
-```
+3. Take `ros2/rclpy` repository as an example:
+    ```bash
+    python github_issue_crawler.py -r ros2/rclpy -s closed -k bug
+    ```
 
-Then you should see the output like this, the progress bar will show the fetching progress:
-![progress](prog.png)
+    Then you should see the output like this, the progress bar will show the fetching progress:
+    ![progress](prog.png)
+
+4. Then you can upload the generated markdown file to your ChatGPT bot for training. Enter the ChatGPT 
+
+## Documentation Tool
+There is another tool that helps you merge all the ROS documentation into a single file.
+
+1. Download the [ROS documentation Repo](https://github.com/ros2/ros2_documentation).
+
+2. Run the `merge_rst.py` to merge all the `.rst` files into a single file.
+    ```bash
+    python merge_rst.py <output_directory> <output_directory>
+    ```
+   
 
 ## Issues
 ```bash
