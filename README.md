@@ -2,7 +2,7 @@
 
 This script fetches issues from a GitHub repository and saves them in Markdown format, with support for keyword and state filters. It was initially designed to aid in creating ChatGPT bots that can answer queries based on GitHub issues, aiding in model training.
 
-An example of its application is the [Robo Advisor](https://chat.openai.com/g/g-njWAeq2iF-robo-advisor) bot, trained on ROS 2 repository issues. However, additional data sources may be required for comprehensive model training.
+An example of its application is the [Robo Advisor](https://chat.openai.com/g/g-njWAeq2iF-robo-advisor) bot, trained on ROS 2 documentations and issues. However, additional data sources may be required for comprehensive model training.
 
 ## Features
 
@@ -65,6 +65,9 @@ source ~/.bashrc
 3. Take `ros2/rclpy` repository as an example:
     ```bash
     python github_issue_crawler.py -r ros2/rclpy -s closed -k bug
+
+    # or rclcpp
+    python github_issue_crawler.py -r ros2/rclcpp -s closed
     ```
 
     Then you should see the output like this, the progress bar will show the fetching progress:
@@ -81,17 +84,22 @@ There is another tool that helps you merge all the ROS documentation into a sing
     ```bash
     python merge_rst.py <output_directory> <output_directory>
     ```
-   
+
+> These tools currently jam all the information into a single file, which may hit the token limit of ChatGPT. You may need to split the file into smaller pieces. This will be the TODO for the next version.
 
 ## Issues
-```bash
-github.GithubException.RateLimitExceededException: 403 {'message': 'API rate limit exceeded for user ID xxx...
-```
-This is because of the Github's [primary rate limit for authenticated users](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users). 
+1. Github Token Rate Limit
+    ```bash
+    github.GithubException.RateLimitExceededException: 403 {'message': 'API rate limit exceeded for user ID xxx...
+    ```
+    This is because of the Github's [primary rate limit for authenticated users](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api?apiVersion=2022-11-28#primary-rate-limit-for-authenticated-users). 
 
-Long story for short,
-* Personal token has a rate limit of 5,000 requests per hour.
-* GitHub Enterprise Cloud organization have a higher rate limit of 15,000 requests per hour.
+    Long story for short,
+    * Personal token has a rate limit of 5,000 requests per hour.
+    * GitHub Enterprise Cloud organization have a higher rate limit of 15,000 requests per hour.
+
+2. ChatGPT Knowledge Token Limit
+    ChatGPT has a limit of 2 million tokens for each knowledge file. A good rule of thumb is to keep the knowledge file under 10,000 lines or 5 MB(markdown).
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
